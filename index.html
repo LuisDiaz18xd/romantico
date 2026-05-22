@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti ❤️</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN -->
+    <div class="login" id="loginBox">
+        <h1>❤️ Bienvenida ❤️</h1>
+        <p>Solo tú puedes entrar</p>
+
+        <input type="password" id="password" placeholder="Nuestra contraseña">
+        <button onclick="login()">Entrar</button>
+
+        <p id="error"></p>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="contenido" id="contenido">
+        <h1>Te Amo ❤️</h1>
+
+        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1000"
+             alt="amor">
+
+        <p>
+            Desde que llegaste a mi vida todo cambió ✨<br><br>
+            Gracias por existir ❤️
+        </p>
+
+        <button onclick="mostrarCarta()">Abrir Carta 💌</button>
+
+        <div id="carta" class="carta">
+            Mi amor...<br><br>
+            Eres la persona más especial que tengo ❤️<br>
+            Quiero seguir creando recuerdos contigo ✨
+        </div>
+
+        <audio controls autoplay loop>
+            <source src="Those-Eyes.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
