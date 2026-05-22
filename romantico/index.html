@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Ti ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: black;
+}
+.final-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.final-message h1 {
+    font-size: 40px;
+    color: #ffd166;
+    text-align: center;
+    max-width: 80%;
+    animation: fadeIn 3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8);}
+    to { opacity: 1; transform: scale(1);}
+}
+
+/* VIDEO FONDO */
+#bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* OSCURECER */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: -1;
+}
+
+/* LOGIN */
+#login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color: white;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 10px;
+}
+
+button {
+    background: #ff4d6d;
+    border: none;
+    padding: 12px 25px;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* HISTORIA */
+#story {
+    display: none;
+    text-align: center;
+    color: white;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%) scale(0.9);
+    opacity: 0;
+    transition: all 2s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+.slide img, .slide video {
+    max-width: 320px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(255,0,100,0.6);
+}
+
+p {
+    font-size: 22px;
+    color: #ffd166;
+    margin-top: 15px;
+}
+
+/* CORAZONES */
+.heart {
+    position: fixed;
+    color: red;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh); opacity: 1; }
+    to { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<video id="bg" autoplay loop muted>
+    <source src="cli.mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- LOGIN -->
+<div id="login">
+    <h1>💖 Solo para ti 💖</h1>
+    <p>Ingresa nuestra fecha especial</p>
+    <input type="password" id="pass" placeholder="Ej: 14/02">
+    <br>
+    <button onclick="check()">Entrar 💘</button>
+</div>
+
+<!-- HISTORIA -->
+<div id="story">
+
+<div class="slide"><img src="img/a1.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a2.jpeg"><p class="text"></p></div>
+<div class="slide"><video src="vid/v1.mp4" muted></video><p class="text"></p></div>
+<div class="slide"><img src="img/a3.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a4.jpeg"><p class="text"></p></div>
+<div class="slide"><video src="vid/v2.mp4" muted></video><p class="text"></p></div>
+<div class="slide"><img src="img/a5.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a6.jpeg"><p class="text"></p></div>
+<div class="slide"><video src="vid/v3.mp4" muted></video><p class="text"></p></div>
+<div class="slide"><img src="img/a7.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a8.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a9.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a10.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a11.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a12.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a13.jpeg"><p class="text"></p></div>
+<div class="slide"><img src="img/a14.jpeg"><p class="text"></p></div>
+<div class="slide final-message"><h1 id="finalText"></h1></div>
+
+</div>
+
+<audio id="music" src="those-eyes.mp3"></audio>
+
+
+<script>
+let mensajes = [
+"Desde que llegaste… todo cambió 💖",     // a1
+"Tu sonrisa ilumina mi mundo ✨",         // a2
+"Cada instante contigo es eterno 🎥",     // v1
+"Contigo aprendo a amar 💘",               // a3
+"Eres mi destino 💫",                    // a4
+"Momentos que guardo en mi corazón 😍",  // v2
+"Tu mirada me pierde 🥺",                // a5
+"Gracias por existir ❤️",               // a6
+"Un segundo contigo vale todo ⏳",       // v3
+"Eres mi hogar 🏡",                     // a7
+"Siempre tú 💞",                        // a8
+"Mi corazón siempre te elige 💓",       // a9
+"Contigo todo es más bonito 🌸",         // a10
+"Tu amor es mi felicidad 😊",           // a11
+"Eres mi sueño hecho realidad 🌙",       // a12
+"Siempre nosotros 💞",                  // a13
+"Te amo más de lo que las palabras pueden decir ❤️" // a14
+];
+
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function check(){
+    let pass = document.getElementById("pass").value;
+
+    if(pass === "21/03"){ // CAMBIA AQUÍ
+        document.getElementById("login").style.display = "none";
+        document.getElementById("story").style.display = "block";
+
+        document.getElementById("music").play();
+        hearts();
+        showSlides();
+    } else {
+        alert("Clave incorrecta 💔");
+    }
+}
+
+/* TEXTO TIPO ESCRITURA */
+function typeWriter(element, text, i=0){
+    if(i < text.length){
+        element.innerHTML += text.charAt(i);
+        setTimeout(()=>typeWriter(element,text,i+1),50);
+    }
+}
+
+function showSlides(){
+    slides.forEach(s => {
+        s.classList.remove("active");
+        let t = s.querySelector(".text");
+        if(t) t.innerHTML = "";
+    });
+
+    let current = slides[index];
+    current.classList.add("active");
+
+    let textElement = current.querySelector(".text");
+    if(textElement && mensajes[index]){
+        typeWriter(textElement, mensajes[index]);
+    }
+
+    let duration = 14000;
+
+    let video = current.querySelector("video");
+    if(video){
+        video.currentTime = 0;
+        video.play();
+
+        if(video.src.includes("v1")) duration = 11000;
+        if(video.src.includes("v2")) duration = 10000;
+        if(video.src.includes("v3")) duration = 1000;
+    }
+
+    index++;
+
+    if(index < slides.length){
+        // Si es la penúltima (a14), reducir tiempo
+    if(index === slides.length - 1){
+        duration = 7000; // menos tiempo
+    }
+    setTimeout(showSlides, duration);
+    } else {
+    mostrarFinal();
+    }
+}
+
+/* CORAZONES */
+function hearts(){
+    setInterval(()=>{
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.fontSize = (Math.random()*20+10)+"px";
+        heart.style.animationDuration = (Math.random()*3+2)+"s";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),5000);
+    },300);
+}
+let textoFinal = "Me esforzaré cada día, para enseñarte que cuando alguien quiere hacer las cosas bien, lo hace... mi futura novia ❤️";
+function mostrarFinal(){
+    let finalSlide = document.querySelector(".final-message");
+    finalSlide.classList.add("active");
+
+    let el = document.getElementById("finalText");
+    typeWriter(el, textoFinal);
+}
+</script>
+
+</body>
+</html>
